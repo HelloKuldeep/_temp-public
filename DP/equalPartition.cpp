@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(i,a,b) for(int i = a; i < b; i++)
+#define XL printf("\n")
+#define S(x) scanf("%d",&x)
+#define S2(x,y) scanf("%d%d",&x,&y)
+#define P(x) printf("%d ",x)
+int n;
+int partition(int a[]){
+	int sum=0;
+	rep(i,0,n)	sum+=a[i];
+	int part[sum/2+1][n+1];
+	rep(i,0,sum/2+1)	part[i][0]=0;
+	rep(i,0,n+1)	part[0][i]=1;
+	rep(i,1,sum/2+1)
+		rep(j,1,n+1){
+			part[i][j]=part[i][j-1];
+			if(i>=a[j-1])	part[i][j]=part[i][j] || part[i-a[j-1]][j-1];
+		}
+	return part[sum/2][n];
+}
+int main(){
+	freopen("input.txt","r",stdin);	//freopen("output.txt","w",stdout);
+	S(n);
+	int a[n];
+	rep(i,0,n)	S(a[i]);
+	(partition(a))?cout<<"Yes\n":cout<<"No\n";
+	return 0;
+}

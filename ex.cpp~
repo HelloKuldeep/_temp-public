@@ -6,7 +6,7 @@ long long stock(vector<pair<long long,long long> > &a,long long sum){
 	sort(a.begin(),a.end());	for(int i=0;i<n;i++){	cout<<endl;	for(int j=0;j<a[i].second;j++)	cout<<a[i].first<<" ";}cout<<endl<<endl;
 	for(long long i=0;i<n;i++){
 		long long g=a[i].second;
-		if(g*a[i].first<=sum){	sum-=g*a[i].first;	count+=g;	cout<<g*a[i].first<<"x"<<endl;	continue;}
+		if(g*a[i].first<=sum){	sum-=g*a[i].first;	count+=g;	cout<<g*a[i].first<<endl;	continue;}
 		for(long long j=0;j<g;j++){
 			if(sum-a[i].first<0)	break;
 			else {	sum-=a[i].first;	count++;}	cout<<a[i].first<<endl;
