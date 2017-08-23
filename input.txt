@@ -1,4 +1,14 @@
-1
-5
-3
-1 2 3
+12
+i
+like
+sam
+sung
+samsung
+mobile
+ice
+cream
+icecream
+man
+go
+mango
+ilikesamsung

@@ -4,9 +4,11 @@ int coin(vector<int> &a,int n,int k){	//On-space
 	int dp[n+1];
 	memset(dp,0,sizeof(dp));
 	dp[0]=1;
-	for(int i=0;i<k;i++)
+	for(int i=0;i<k;i++){
 		for(int j=a[i];j<=n;j++)
 			dp[j]+=dp[j-a[i]];
+		for(int i=0;i<n+1;i++)	cout<<dp[i]<<" ";	cout<<endl;
+	}
 	//for(int i=0;i<k+1;i++){cout<<endl;for(int j=0;j<n+1;j++)cout<<dp[i][j]<<" ";}
 	return dp[n];
 }
