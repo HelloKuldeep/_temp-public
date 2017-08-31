@@ -1,15 +1,16 @@
 #include<bits/stdc++.h>	
 using namespace std;
 int bin(int n){
-	int count=0;
 	if(n>1)	bin(n/2);
-	if(n%2)	count++;
-	return count;
+	cout<<n%2;
 }
 int main(){
 	//freopen("input.txt","r",stdin);	//freopen("output.txt","w",stdout);
-	int n;	cin>>n;
-	cout<<bin(n)<<endl;
+	string a="ABC";
+	cout<<a<<endl;
+	swap((a+l), (a+i));
+	cout<<a<<endl;
+	cout<<endl;
     return 0;
 }
 
