@@ -1,36 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool sortmy(const pair<int,int> &a,const pair<int,int> &b){
-	return (a.first>b.first);
-}
-pair<int,int> job(int n,int i2[],int d[],int p[]){
-	vector<pair<int,int> > v(n);
-	for(int i=0;i<n;i++)	v.push_back(make_pair(p[i],d[i]));
-	sort(v.begin(),v.end(),sortmy);
-	bool slot[n];
-	int t=0,sum=0;
-    for (int i=0;i<n;i++)
-        slot[i]=false;
-    for (int i=0;i<n;i++)
-       for (int j=min(n,v[i].second)-1;j>=0;j--)
-          if (slot[j]==false){
-             sum+=v[i].first;
-             slot[j]=true;
-             t++;
-             break;
-          }
-//	for (int i=0;i<n;i++)	if(slot[i])	t++;
-	return make_pair(t,sum);
+int coin(int n,int a[],int k){
+	int t=0;
+	sort(a,a+n);
+	for(int i=0;i<n-1;i++)
+		for(int j=i+1;j<n;j++)
+			if(a[j]-a[i]>k)	t+=a[j]-a[i]-k,	a[j]-=(a[j]-a[i]-k);
+			else a[j]=-1;
+	return t;
 }
 int main(void) {
 	//freopen("input.txt","r",stdin);
 	int t;	cin>>t;
 	while(t--){
-		int n;	cin>>n;
-		int i2[n],d[n],p[n];
-		for(int i=0;i<n;i++)	cin>>i2[i], cin>>d[i], cin>>p[i];
-		pair<int,int> p2=job(n,i2,d,p);
-		cout<<p2.first<<" "<<p2.second<<endl;
+		int n,k;	cin>>n>>k;
+		int a[n];
+		for(int i=0;i<n;i++)	cin>>a[i];
+		cout<<coin(n,a,k);
+		cout<<endl;
 	}
 	return 0;
 }
