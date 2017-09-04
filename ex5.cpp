@@ -40,10 +40,15 @@ inline long long inp(){
 } 
  
 int main() {
+	clock_t tstart = clock();
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
 	int t;
 	t=inp();//faster input
+	cout<<"\n\nTotal Time Taken : "<<(double)(-tstart + clock())/CLOCKS_PER_SEC<<"sec\n\n";
 	return 0;
 }
  

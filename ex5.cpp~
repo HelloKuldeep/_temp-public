@@ -27,14 +27,23 @@ typedef pair<int,int> pii;
 #define cpresent(c,x) (find(all(c),x) != (c).end()) 
 #define FF first
 #define SS second
+
+inline long long inp(){
+    long long n = 0;
+    char c = getchar_unlocked();
+    while(c<'0'|| c>'9') c = getchar_unlocked();
+    while(c>='0'&&c<='9'){
+    	n =(n<<3)+(n<<1)+c - '0';
+        c = getchar_unlocked();
+    }
+    return n;
+} 
+ 
 int main() {
-	clock_t tstart = clock();   
 	freopen("input.txt","r",stdin);
-	//freopen("output.txt","w",stdout);
+	freopen("output.txt","w",stdout);
 	int t;
-	cin>>t;
-	//cout<<t;
-	cout<<"\n\nTotal Time Taken : "<<(double)(-tstart + clock())/CLOCKS_PER_SEC<<"sec\n\n";
+	t=inp();//faster input
 	return 0;
 }
  

@@ -1,56 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
-struct MinHeapNode{
-    char data;
-    unsigned freq;
-    MinHeapNode *left, *right;
- 
-    MinHeapNode(char data, unsigned freq){
-        left = right = NULL;
-        this->data = data;
-        this->freq = freq;
-    }
-};
-struct compare{
-    bool operator()(MinHeapNode* l, MinHeapNode* r){
-        return (l->freq > r->freq);
-    }
-};
-void printCodes(struct MinHeapNode* root, string str)
+void office(int s[], int f[], int n)
 {
-    if (!root)
-        return;
-    if (root->data != '$')
-        //cout << root->data << ": " << str << "\n";
-        cout<<str<<" ";
-    printCodes(root->left, str + "0");
-    printCodes(root->right, str + "1");
-}
-void HuffmanCodes(char data[], int freq[], int size){
-    struct MinHeapNode *left, *right, *top;
-    priority_queue<MinHeapNode*, vector<MinHeapNode*>, compare> minHeap;
-    for (int i = 0; i < size; ++i)
-        minHeap.push(new MinHeapNode(data[i], freq[i]));
-    while (minHeap.size() != 1){
-        left = minHeap.top();
-        minHeap.pop();
-        right = minHeap.top();
-        minHeap.pop();
-        top = new MinHeapNode('$', left->freq + right->freq);
-        top->left = left;
-        top->right = right;
-        minHeap.push(top);
+    int i, j;
+ 
+    //printf ("Following activities are selected n");
+ 
+    // The first activity always gets selected
+    i = 0;
+    printf("%d ", i+1);
+ 
+    // Consider rest of the activities
+    for (j = 1; j < n; j++)
+    {
+      // If this activity has start time greater than or
+      // equal to the finish time of previously selected
+      // activity, then select it
+      if (s[j] >= f[i])
+      {
+          printf ("%d ", j+1);
+          i = j;
+      }
     }
-    printCodes(minHeap.top(), "");
 }
-int main(){
+int main(void) {
+	freopen("input.txt","r",stdin);
 	int t;	cin>>t;
 	while(t--){
-		char arr[30];	int freq[28];
-		cin>>arr;
-		int n=strlen(arr);
-		for(int i=0;i<n;i++)	cin>>freq[i];
-		HuffmanCodes(arr, freq, n);
+		int n;	cin>>n;
+		int a[n],b[n];
+		for(int i=0;i<n;i++)	cin>>a[i];
+		for(int i=0;i<n;i++)	cin>>b[i];
+		//cout<<
+		office(a,b,n);
 		cout<<endl;
 	}
 	return 0;
