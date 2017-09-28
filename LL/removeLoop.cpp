@@ -4,17 +4,16 @@ struct Node{
 	int data;
 	Node *next;
 };
-Node *newNode(int key,Node *head){
+Node *newNode(int key){
 	Node *temp=new Node;
-	temp->data=key;	temp->next=head;
+	temp->data=key;	temp->next=NULL;
 	return temp;
 }
 void traverse(Node *head){
-	Node *temp=head;
-	if(head)do{ cout<<temp->data<<" ";	temp=temp->next; }while(head!=temp);
+	while(head){ cout<<head->data<<" ";	head=head->next; }
 }
 void removeLoop(Node *loop,Node *head){
-	while(loop!=head){ loop=loop->next; head=head->next; }
+	while(loop->next!=head->next){ loop=loop->next; head=head->next; }	//imp to write loop->next and head->next in while
 	loop->next=NULL;
 }
 void removeTheLoop(Node *head){
@@ -30,9 +29,10 @@ void removeTheLoop(Node *head){
 int main(){
 	//freopen("input.txt","r",stdin);
 	Node *head = NULL;
-    head=newNode(50,NULL);
-    head->next=newNode(4,head);	head->next->next=newNode(22,head); head->next->next->next=newNode(113,head); head->next->next->next->next=newNode(1,head); 
-    traverse(head);	cout<<endl;
+    head=newNode(50);
+    head->next=newNode(4);	head->next->next=newNode(22); head->next->next->next=newNode(113); head->next->next->next->next=newNode(1);
+	    head->next->next->next->next->next=head->next;
+    //traverse(head);	cout<<endl;
     removeTheLoop(head);
     traverse(head);	cout<<endl;
 	cout<<endl;

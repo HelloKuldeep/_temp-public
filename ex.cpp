@@ -1,42 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
-struct node{
+struct Node{
 	int data;
-	node *left, *right;
+	Node *next,*prev;
 };
-node *newNode(int key){
-	node *temp=new node;
-	temp->data=key;	temp->left=NULL; temp->right=NULL;
+Node *newNode(Node *head,int key){
+	Node *temp=new Node;
+	temp->data=key;	temp->next=NULL; temp->prev=head;	//if(head)head->next=temp;
 	return temp;
 }
-int height(node *root){
-    if(!root)   return 0;
-    else{
-        int l=height(root->left);
-        int r=height(root->right);
-        if(l>r) return l+1;
-        else return r+1;
-    }
+void traverse(Node *head){
+	while(head){ cout<<head->data<<" ";	head=head->next; }
 }
-int print(node *root,int n){
-    if(!root)   return 0;
-    if(n==1)    return 1;
-    else if(n>1)	return (print(root->left,n-1) + print(root->right,n-1));
-}
-int getMaxWidth(node* root){
-    int n=height(root),ans=0,d;
-    for(int i=1;i<=n;i++){
-        d=print(root,i);
-        ans=max(ans,d);
-    }
-    return ans;
+void reverse(Node **head){
+    int l=0;    Node *temp2=*head;
+    while(temp2->next){ temp2=temp2->next; l++; }  l++;
+    Node *temp=*head;
+    l/=2;
+    while(l--){ swap(temp->data,temp2->data); temp=temp->next; temp2=temp2->prev; }
 }
 int main(){
 	//freopen("input.txt","r",stdin);
-	node *root=newNode(1);
-	root->left=newNode(2);	root->right=newNode(3);
-	root->left->left=newNode(4);	root->left->right=newNode(5);	root->right->left=newNode(6);	root->right->right=newNode(7);
-	cout<<getMaxWidth(root);
+	Node *head = NULL;
+    head=newNode(NULL,50);
+    head->next=newNode(head,4);	head->next->next=newNode(head->next,22); head->next->next->next=newNode(head->next->next,113);
+    				head->next->next->next->next=newNode(head->next->next->next,1);
+    traverse(head);	cout<<endl;
+    reverse(&head);
+    traverse(head);	cout<<endl;
 	cout<<endl;
 	return 0;
 }
