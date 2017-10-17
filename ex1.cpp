@@ -1,32 +1,32 @@
-#include<bits/stdc++.h>
+#include<bits/stdc++.h> //O(m+n) or O(n)
 using namespace std;
-struct Node{
+struct node{
 	int data;
-	Node *next;
+	node *left, *right;
 };
-Node *newNode(int key,Node *head){
-	Node *temp=new Node;
-	temp->data=key;	temp->next=head;
+node *newNode(int key){
+	node *temp=new node;
+	temp->data=key;	temp->left=NULL; temp->right=NULL;
 	return temp;
 }
-void traverse(Node *head){
-	Node *temp=head;
-	if(head)do{ cout<<temp->data<<" ";	temp=temp->next; }while(head!=temp);
+bool range(node *root,int l,int h){ return l<=root->data && root->data<=h; }
+bool util(node *root,int l,int h,int &c){
+	if(!root) return true;
+	bool li=(root->left)?util(root->left,l,h,c):true;
+	bool r=(root->right)?util(root->right,l,h,c):true;
+	if( li && r && range(root,l,h)){ c++; return true; }
+	return false;
 }
-
-Node *insert(Node *head,int d){
-	Node *temp=NULL;
-	if(!head){ temp=newNode(d,NULL); temp->next=temp; }
-	return temp;
+int getCountSubtree(node *root,int l,int h){
+	int c=0;
+	util(root,l,h,c);
+	return c;
 }
 int main(){
 	//freopen("input.txt","r",stdin);
-	Node *head = NULL;
-    head=newNode(50,NULL);
-    head->next=newNode(4,head);	head->next->next=newNode(22,head); head->next->next->next=newNode(113,head); head->next->next->next->next=newNode(1,head); 
-    traverse(head);	cout<<endl;
-    head=insert(head,7);
-    traverse(head);	cout<<endl;
-	cout<<endl;
+	node *root=newNode(10);
+	root->left=newNode(5);	root->right=newNode(50);
+	root->left->left=newNode(1);	/*root->left->right=newNode(4);*/	root->right->left=newNode(40);	root->right->right=newNode(100);
+	cout<<getCountSubtree(root,5,45);	cout<<endl;
 	return 0;
 }

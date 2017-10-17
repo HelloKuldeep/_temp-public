@@ -1,40 +1,29 @@
-#include<bits/stdc++.h>
+#include<bits/stdc++.h> //O(m+n) or O(n)
 using namespace std;
-struct Node{
+struct node{
 	int data;
-	Node *next;
+	node *left, *right;
 };
-Node *newNode(int key){
-	Node *temp=new Node;
-	temp->data=key;	temp->next=NULL;
+node *newNode(int key){
+	node *temp=new node;
+	temp->data=key;	temp->left=NULL; temp->right=NULL;
 	return temp;
 }
-void traverse(Node *head){
-	while(head){ cout<<head->data<<" ";	head=head->next; }
+int util(node *root,int sum,int h){
+	if(!root) return INT_MAX;
+	if(sum==root->data) return h;
+	return min( util(root->left,sum-root->data,h+1) , util(root->right,sum-root->data,h+1) );
+	
 }
-void removeLoop(Node *loop,Node *head){
-	while(loop->next!=head->next){ loop=loop->next; head=head->next; }	//imp to write loop->next and head->next in while
-	loop->next=NULL;
-}
-void removeTheLoop(Node *head){
-    if(!head || !head->next) return;
-	Node *one=head;	Node *two=head;
-	while(two && two->next){
-		one=one->next;
-		two=two->next->next;
-		if(one==two){ removeLoop(one,head); return;}
-	}
-	return;
+int dis(node *root,int sum){
+	if(!root) return 0;
+	return util(root,sum,0);
 }
 int main(){
 	//freopen("input.txt","r",stdin);
-	Node *head = NULL;
-    head=newNode(50);
-    head->next=newNode(4);	head->next->next=newNode(22); head->next->next->next=newNode(113); head->next->next->next->next=newNode(1);
-	    head->next->next->next->next->next=head->next;
-    //traverse(head);	cout<<endl;
-    removeTheLoop(head);
-    traverse(head);	cout<<endl;
-	cout<<endl;
+	node *root=newNode(5);
+	root->left=newNode(3);	root->right=newNode(6);
+	root->left->left=newNode(2);	root->left->right=newNode(4);	root->right->left=newNode(8);	root->right->right=newNode(2);
+	cout<<dis(root,12);	cout<<endl;
 	return 0;
 }

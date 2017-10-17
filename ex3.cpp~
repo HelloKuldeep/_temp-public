@@ -1,40 +1,40 @@
 #include<bits/stdc++.h>
 using namespace std;
-struct Node{
-	int data;
-	Node *next;
-};
-Node *newNode(int key){
-	Node *temp=new Node;
-	temp->data=key;	temp->next=NULL;
-	return temp;
-}
-void traverse(Node *head){
-	while(head){ cout<<head->data<<" ";	head=head->next; }
-}
-void removeLoop(Node *loop,Node *head){
-	while(loop->next!=head->next){ loop=loop->next; head=head->next; }
-	loop->next=NULL;
-}
-void removeTheLoop(Node *head){
-    if(!head || !head->next) return;
-	Node *one=head;	Node *two=head;
-	while(two && two->next){
-		one=one->next;
-		two=two->next->next;
-		if(one==two){ removeLoop(one,head); return;}
+#define MAX 100
+int M[MAX][MAX];
+int maxAreaHisto(int a[],int n){
+	stack<int> s;
+	int ma=-1,sum,tp,i=0;
+	while(i<n){
+		if(s.empty()||a[s.top()]<=a[i])	s.push(i++);
+		else{
+			int x=s.top(); s.pop();
+			sum=a[x]*(s.empty()?i:i-s.top()-1);
+			ma=max(sum,ma);
+		}
 	}
-	return;
+	while(!s.empty()){
+		int x=s.top(); s.pop();
+		sum=a[x]*(s.empty()?i:i-s.top()-1);
+		ma=max(sum,ma);
+	}
+	return ma;
+}
+int maxArea(int n,int m){
+	int a[m],ans=-1; memset(a,0,sizeof(a));
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++) (M[i][j])?a[j]+=M[i][j]:a[j]=0;
+		int xu=maxAreaHisto(a,m);
+		ans=max(ans,xu);
+	}
+	return ans;
 }
 int main(){
-	//freopen("input.txt","r",stdin);
-	Node *head = NULL;
-    head=newNode(50);
-    head->next=newNode(4);	head->next->next=newNode(22); head->next->next->next=newNode(113); head->next->next->next->next=newNode(1);
-	    head->next->next->next->next->next=head->next;
-    //traverse(head);	cout<<endl;
-    removeTheLoop(head);
-    traverse(head);	cout<<endl;
+	freopen("input.txt","r",stdin);
+	int n,m; cin>>n>>m;
+	//int a[n][m];
+	for(int i=0;i<n;i++)for(int j=0;j<m;j++) cin>>M[i][j];
+	cout<<maxArea(n,m);
 	cout<<endl;
 	return 0;
 }

@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct Node{
+	int data;
+	Node *next;
+};
+Node *newNode(int key){
+	Node *temp=new Node;
+	temp->data=key;	temp->next=NULL;
+	return temp;
+}
+void traverse(Node *head){	while(head){ cout<<head->data<<" ";	head=head->next; } }
+void BToDLL(Node *root,Node **head){
+	if(!root)	return;
+	BToDLL(root->right,head);
+	root->right=*head;
+	if(*head) (*head)->left=root;
+	*head=root;
+	BToDLL(root->left,head);
+}
+int main(){
+	//freopen("input.txt","r",stdin);
+	Node *head = NULL; head=newNode(1); head->next=newNode(2);	head->next->next=newNode(3); head->next->next->next=newNode(4);
+		head->next->next->next->next=newNode(5); head->next->next->next->next->next=newNode(6); //head->next->next->next->next->next->next=newNode(7);
+		//head->next->next->next->next->next->next->next=newNode(8);
+    traverse(head);	cout<<endl;
+    rotate(&head,4);
+    traverse(head);	cout<<endl;
+	cout<<endl;
+	return 0;
+}
