@@ -1,18 +1,17 @@
 #include<bits/stdc++.h>
 using namespace std;
-int remove_duplicate(int a[],int n){
-	int t=0;
-	for(int i=0;i<n-1;i++) if(a[i]==a[i+1]) t++;
-}
-int main(){
-	freopen("input.txt","r",stdin);
-    int t; cin>>t;
-    while(t--){
-    	int n; cin>>n;
-        int a[n];
-    	for(int i=0;i<n;i++) cin>>a[i];
-    	cout<<remove_duplicate(a,n);
-    	cout<<endl;
-    }
-    return 0;
+int main() {
+	//freopen("input.txt","r",stdin);//freopen("output.txt","w",stdout);
+	int n; cin>>n;
+	while(n--){
+		int a,u,s=0; cin>>a;
+		while(u){
+			int x=1;
+			u=a/(pow(5,x));
+			x++;
+			s+=u;
+		}
+		cout<<s<<endl;
+	}
+	return 0;
 }
